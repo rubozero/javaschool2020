@@ -46,12 +46,11 @@ public class UrlService {
     public Url addUrl(Url url) {
         if(url != null && url.getUrl() != null && !url.getUrl().trim().isEmpty()){
             String sUrl = url.getUrl();
-            Url urlToSave = this.getUrlToSave(sUrl);
             Optional<Url> getUrl = urlRepository.findByUrl(sUrl);
             if(getUrl.isPresent()){
                 return getUrl.get();
             } else {
-                return urlRepository.save(urlToSave);
+                return urlRepository.save(this.getUrlToSave(sUrl));
             }
         }else {
             return null;
